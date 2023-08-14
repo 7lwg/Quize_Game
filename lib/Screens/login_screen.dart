@@ -1,5 +1,6 @@
 import 'dart:developer';
 import 'dart:ffi';
+import 'catigory.dart';
 
 import 'package:flutter/material.dart';
 
@@ -27,13 +28,12 @@ class Login extends StatelessWidget {
               Container(
                 width: MediaQuery.of(context).size.width,
                 height: MediaQuery.of(context).size.height * 0.69,
+                // height: double.infinity,
                 decoration: BoxDecoration(
                     color: Color.fromARGB(255, 227, 225, 225),
                     //color: Colors.red,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      topRight: Radius.circular(50),
-                    )),
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(50))),
                 child: Column(
                   children: [
                     SizedBox(
@@ -53,7 +53,7 @@ class Login extends StatelessWidget {
                     Container(
                       margin: EdgeInsets.all(20),
                       width: MediaQuery.of(context).size.width * 0.8,
-                      // height: MediaQuery.of(context).size.height * 0.65,
+                      // height: MediaQuery.of(context).size.height * 0.30,
                       child: TextField(
                         textAlign: TextAlign.left,
                         decoration: InputDecoration(
@@ -65,6 +65,7 @@ class Login extends StatelessWidget {
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(100),
+                              // borderSide: BorderSide(color: Colors.red)
                             ),
                             hintText: 'Username',
                             hintStyle: TextStyle(
@@ -81,9 +82,13 @@ class Login extends StatelessWidget {
                           textAlign: TextAlign.left,
                           decoration: InputDecoration(
                             contentPadding: EdgeInsets.all(15),
-                            suffixIcon: Icon(Icons.visibility_off,
-                                color: const Color.fromARGB(255, 145, 142, 142),
-                                size: 25),
+                            suffixIcon: TextButton(
+                              onPressed: () {},
+                              child: Icon(Icons.visibility,
+                                  color:
+                                      const Color.fromARGB(255, 145, 142, 142),
+                                  size: 25),
+                            ),
                             prefixIcon: Icon(Icons.lock,
                                 color: const Color.fromARGB(255, 145, 142, 142),
                                 size: 30),
@@ -118,7 +123,14 @@ class Login extends StatelessWidget {
                     ),
                     SizedBox(height: MediaQuery.of(context).size.height * 0.04),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute<void>(
+                            builder: (BuildContext context) => Catigory(),
+                          ),
+                        );
+                      },
                       style: ElevatedButton.styleFrom(
                           shadowColor: Colors.black,
                           elevation: 10,
@@ -140,13 +152,18 @@ class Login extends StatelessWidget {
                     SizedBox(
                       height: 20,
                     ),
-                    Container(
-                      child: Icon(
-                        Icons.fingerprint,
-                        color: Colors.blue,
-                        size: 60,
-                      ),
+                    Icon(
+                      Icons.fingerprint,
+                      color: Colors.blue,
+                      size: 60,
                     ),
+                    // Container(
+                    //   child: Icon(
+                    //     Icons.fingerprint,
+                    //     color: Colors.blue,
+                    //     size: 60,
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 5,
                     ),
@@ -155,19 +172,25 @@ class Login extends StatelessWidget {
                       style: TextStyle(color: Colors.grey),
                     ),
                     Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
-                        SizedBox(
-                          width: 20,
+                        // SizedBox(
+                        //   width: 20,
+                        // ),
+                        Row(
+                          children: [
+                            Checkbox(
+                              value: true,
+                              activeColor: Colors.green,
+                              onChanged: (newBoll) {},
+                            ),
+                            Text('Remember me'),
+                          ],
                         ),
-                        Checkbox(
-                          value: true,
-                          activeColor: Colors.green,
-                          onChanged: (newBoll) {},
-                        ),
-                        Text('Remember me'),
-                        SizedBox(
-                          width: MediaQuery.of(context).size.width * 0.2,
-                        ),
+
+                        // SizedBox(
+                        //   width: MediaQuery.of(context).size.width * 0.2,
+                        // ),
                         TextButton(
                           onPressed: () {},
                           child: Text(
@@ -176,7 +199,7 @@ class Login extends StatelessWidget {
                           ),
                         ),
                       ],
-                    )
+                    ),
                   ],
                 ),
               )

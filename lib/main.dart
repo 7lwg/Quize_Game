@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'Screens/opening_screen.dart';
 import 'Screens/login_screen.dart';
+import 'Screens/catigory.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
         ),
         home: const OpeningScreen());
     // home: const Login());
+    // home: Catigory());
   }
 }
 
