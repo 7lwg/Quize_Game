@@ -12,26 +12,45 @@ class QuizScreen extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: Color.fromARGB(255, 133, 62, 215),
           automaticallyImplyLeading: false,
-          title: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                "7/10",
+          title: Center(child: Text('General Test')),
+          leading: Center(
+              child: Padding(
+            padding: EdgeInsetsDirectional.only(start: 10),
+            child: Text(
+              '7/10',
+              style: TextStyle(fontSize: 20),
+            ),
+          )),
+          actions: [
+            Padding(
+              padding: EdgeInsetsDirectional.only(end: 10),
+              child: Image.asset(
+                'img/logo page2.png',
+                width: MediaQuery.of(context).size.width * 0.15,
+                height: MediaQuery.of(context).size.height * 0.15,
               ),
-              Text(
-                "General Test",
-              ),
-              // Size(width, height)
-              // ,
-              Container(
-                child: Image.asset(
-                  'img/logo page2.png',
-                  width: MediaQuery.of(context).size.width * 0.15,
-                  height: MediaQuery.of(context).size.height * 0.15,
-                ),
-              ),
-            ],
-          ),
+            )
+          ],
+          // Row(
+          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
+          //   children: [
+          //     Text(
+          //       "7/10",
+          //     ),
+          //     Text(
+          //       "General Test",
+          //     ),
+          //     // Size(width, height)
+          //     // ,
+          //     Container(
+          //       child: Image.asset(
+          //         'img/logo page2.png',
+          //         width: MediaQuery.of(context).size.width * 0.15,
+          //         height: MediaQuery.of(context).size.height * 0.15,
+          //       ),
+          //     ),
+          //   ],
+          // ),
         ),
         body: Column(
           children: [
@@ -40,9 +59,6 @@ class QuizScreen extends StatelessWidget {
               padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
               child: Column(
                 children: [
-                  // SizedBox(
-                  //   height: 20,
-                  // ),
                   Text(
                     'Question 1',
                     style: TextStyle(

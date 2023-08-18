@@ -29,7 +29,7 @@ class ScoreScreen extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute<void>(
-                  builder: (BuildContext context) => Catigory(),
+                  builder: (BuildContext context) => OpeningScreen(),
                 ),
               );
             },
