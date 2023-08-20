@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:quize_game_ahmed_othman_alhalwagy/Screens/opening_screen.dart';
 import 'catigory.dart';
+import '../global/questions.dart';
 
 class ScoreScreen extends StatelessWidget {
-  const ScoreScreen({super.key});
+  int totalScore = 0;
+  int numberOfQuestions = 0;
+  ScoreScreen(
+      {super.key, required this.totalScore, required this.numberOfQuestions});
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +18,8 @@ class ScoreScreen extends StatelessWidget {
             height: MediaQuery.of(context).size.height * 1 / 3,
           ),
           Text(
-            'Hello Ahmed Your Score is 10/10',
+            'Hello ${userNameController.text} Your Score is ${totalScore}/${numberOfQuestions}',
+            // "${userNameController.text}",
             textAlign: TextAlign.center,
             style: TextStyle(
               fontSize: 50,

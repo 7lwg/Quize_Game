@@ -1,0 +1,43 @@
+import 'package:flutter/material.dart';
+import 'package:quize_game_ahmed_othman_alhalwagy/global/questions.dart';
+// import 'package:google_fonts/google_fonts.dart';
+
+import '../Screens/quiz_screen.dart';
+
+class CategoryContainer extends StatelessWidget {
+ final int index;
+
+  CategoryContainer({
+    // super.key,
+    required this.index,
+  });
+  List quizName = ["Sport Test", "History Test", "iq Test" , "Math Test", "Bio Test" , "Programing Test"];
+  List quizColor = [Colors.blue, Colors.red, Colors.yellow,Colors.blue, Colors.red, Colors.yellow];
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      // بتاخد اقصى مساحة ممكنة من المساحة المتاحة
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => QuizScreen(categoryMap:quiz[index]),
+            ),
+          );
+        },
+
+        child: Container(
+                  child: Center(child: Text(quizName[index])),
+                  width: MediaQuery.of(context).size.width,
+                  // height: MediaQuery.of(context).size.height * 1 / 3,
+                  decoration: BoxDecoration(
+                    border: Border.all(width: 1, color: Colors.black),
+                    color: quizColor[index],
+                  ),
+                ),
+      ),
+    );
+  }
+}

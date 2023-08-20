@@ -1,23 +1,36 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:quize_game_ahmed_othman_alhalwagy/global/questions.dart';
 import 'score_screen.dart';
+// import 'global/questions.dart';
 
-class QuizScreen extends StatelessWidget {
-  const QuizScreen({super.key});
+class QuizScreen extends StatefulWidget {
+  final Map categoryMap;
+  const QuizScreen({super.key, required this.categoryMap});
+  // const QuizScreen({super.key});
 
+  @override
+  State<QuizScreen> createState() => _QuizScreenState();
+}
+
+int index = 0;
+int score = 0;
+int temp_score = 0;
+
+class _QuizScreenState extends State<QuizScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          backgroundColor: Color.fromARGB(255, 133, 62, 215),
+          backgroundColor: widget.categoryMap["color"],
           automaticallyImplyLeading: false,
-          title: Center(child: Text('General Test')),
+          title: Center(child: Text((widget.categoryMap["name"]))),
           leading: Center(
               child: Padding(
             padding: EdgeInsetsDirectional.only(start: 10),
             child: Text(
-              '7/10',
+              "${index + 1}/${(widget.categoryMap["data"] as List).length}",
               style: TextStyle(fontSize: 20),
             ),
           )),
@@ -31,70 +44,56 @@ class QuizScreen extends StatelessWidget {
               ),
             )
           ],
-          // Row(
-          //   mainAxisAlignment: MainAxisAlignment.spaceAround,
-          //   children: [
-          //     Text(
-          //       "7/10",
-          //     ),
-          //     Text(
-          //       "General Test",
-          //     ),
-          //     // Size(width, height)
-          //     // ,
-          //     Container(
-          //       child: Image.asset(
-          //         'img/logo page2.png',
-          //         width: MediaQuery.of(context).size.width * 0.15,
-          //         height: MediaQuery.of(context).size.height * 0.15,
-          //       ),
-          //     ),
-          //   ],
-          // ),
         ),
         body: Column(
           children: [
             Container(
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
-              child: Column(
-                children: [
-                  Text(
-                    'Question 1',
-                    style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: "Pacifico",
-                        fontWeight: FontWeight.w500),
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'What is the capital of France?',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontFamily: "Pacifico",
-                    ),
-                    textAlign: TextAlign.left,
-                  ),
-                ],
-                crossAxisAlignment: CrossAxisAlignment.start,
-              ),
-              margin: const EdgeInsets.only(
-                  top: 70, bottom: 40, left: 10, right: 10),
               width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.2,
-              decoration: const BoxDecoration(
-                color: Color.fromARGB(255, 227, 225, 225),
-                borderRadius: BorderRadius.all(Radius.circular(50)),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black,
-                    blurRadius: 15,
-                    offset: Offset(0, 6),
-                  ),
-                ],
+              height: MediaQuery.of(context).size.height * 0.3,
+              child: Container(
+                alignment: Alignment.centerLeft,
+                padding: const EdgeInsets.only(top: 20, bottom: 20, left: 20),
+                child: Column(
+                  children: [
+                    Text(
+                      'Question ${index + 1}',
+                      style: TextStyle(
+                          fontSize: 30,
+                          fontFamily: "Pacifico",
+                          fontWeight: FontWeight.w500),
+                      textAlign: TextAlign.left,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Flexible(
+                      child: Text(
+                        widget.categoryMap["data"][index]["question"],
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontFamily: "Pacifico",
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ],
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                ),
+                margin: const EdgeInsets.only(
+                    top: 20, bottom: 40, left: 10, right: 10),
+                // width: MediaQuery.of(context).size.width,
+                // height: MediaQuery.of(context).size.height * 0.3,
+                decoration: const BoxDecoration(
+                  color: Color.fromARGB(255, 227, 225, 225),
+                  borderRadius: BorderRadius.all(Radius.circular(50)),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black,
+                      blurRadius: 15,
+                      offset: Offset(0, 6),
+                    ),
+                  ],
+                ),
               ),
             ),
             Expanded(
@@ -110,27 +109,50 @@ class QuizScreen extends StatelessWidget {
                       fontFamily: "Pacifico",
                     ),
                   ),
-                  for (int i = 0; i < 4; i++)
+                  for (int i = 0;
+                      i <
+                          ((widget.categoryMap["data"][index]["answer"] as List)
+                              .length);
+                      i++)
                     InkWell(
                       onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute<void>(
-                            builder: (BuildContext context) => ScoreScreen(),
-                          ),
-                        );
+                        score += widget.categoryMap["data"][index]["answer"][i]
+                            ['score'] as int;
+                        if (index + 1 <
+                            (widget.categoryMap["data"] as List).length) {
+                          setState(() {
+                            index++;
+                          });
+                        } else {
+                          index = 0;
+                          temp_score = score;
+                          score = 0;
+                          // score += widget.categoryMap["data"]["answer"]["score"]
+                          //     as int;
+                          Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute<void>(
+                                builder: (BuildContext context) => ScoreScreen(
+                                    totalScore: temp_score,
+                                    numberOfQuestions:
+                                        (widget.categoryMap["data"] as List)
+                                            .length),
+                              ));
+                        }
                       },
                       child: Container(
                         child: Text(
-                          'Option',
+                          widget.categoryMap["data"][index]["answer"][i]
+                              ["choise"],
                           style: TextStyle(
                             fontFamily: "Pacifico",
-                            fontSize: 30,
+                            fontSize: 25,
                           ),
                           textAlign: TextAlign.center,
                         ),
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height * 0.07,
+                        padding: EdgeInsets.all(10),
+                        // width: MediaQuery.of(context).size.width,
+                        // height: MediaQuery.of(context).size.height * 0.07,
                         decoration: const BoxDecoration(
                           color: Color.fromARGB(255, 227, 225, 225),
                           borderRadius: BorderRadius.all(Radius.circular(50)),
